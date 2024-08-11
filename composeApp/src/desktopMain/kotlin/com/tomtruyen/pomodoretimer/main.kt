@@ -59,9 +59,7 @@ fun main() = application {
             })
         }
         
-        Text(
-            text = "Hello From Tray"
-        )
+        App()
     }
     
     // Main Window
