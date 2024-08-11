@@ -28,13 +28,13 @@ data class Template(
         
         repeat(sessionCount) { count ->
             val focusEntry = TimeEntry(
-                time = focusTimeSeconds,
+                timeInSeconds = focusTimeSeconds,
                 type = TimeEntry.TimeType.FOCUS,
                 autoStart = autoStartFocus
             )
             
             val breakEntry = TimeEntry(
-                time = if(count < sessionCount - 1) shortBreakTimeSeconds else longBreakTimeSeconds,
+                timeInSeconds = if(count < sessionCount - 1) shortBreakTimeSeconds else longBreakTimeSeconds,
                 type = TimeEntry.TimeType.BREAK,
                 autoStart = autoStartBreak
             )
