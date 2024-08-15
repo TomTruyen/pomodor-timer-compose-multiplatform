@@ -19,6 +19,9 @@ class PomodoreTimer(template: Template = Template.Default) {
     )
     val remainingTime = _remainingTime.asStateFlow()
 
+    val totalTime: Int
+        get() = sequence.current()?.data?.timeInSeconds ?: 0
+
     private val timer by lazy {
         CountDownTimer(
             intervalMillis = TICK_INTERVAL,
