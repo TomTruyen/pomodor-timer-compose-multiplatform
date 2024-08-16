@@ -11,29 +11,34 @@ import kotlinx.coroutines.flow.updateAndGet
 class PomodoreTimer(template: Template = Template.Default) {
     private val sequence = template.generateSequence()
 
-    private val _state = MutableStateFlow(CountDownTimerState.IDLE)
-    val state = _state.asStateFlow()
-
-    private val _remainingTime = MutableStateFlow(
-        value = sequence.current()?.data?.timeInSeconds ?: 0
+    private val _state = MutableStateFlow(
+        State(
+            totalTime = sequence.current()?.data?.timeInSeconds ?: 0,
+            remainingTime = sequence.current()?.data?.timeInSeconds ?: 0,
+            countDownTimerState = CountDownTimerState.IDLE,
+        )
     )
-    val remainingTime = _remainingTime.asStateFlow()
 
-    val totalTime: Int
-        get() = sequence.current()?.data?.timeInSeconds ?: 0
+    val state = _state.asStateFlow()
 
     private val timer by lazy {
         CountDownTimer(
             intervalMillis = TICK_INTERVAL,
             listener = object: CountDownTimerListener {
                 override fun onTick(millisUntilFinished: Long) {
-                    _remainingTime.update {
-                        (millisUntilFinished / 1000).toInt().coerceAtLeast(0)
+                    setState {
+                        copy(
+                            remainingTime = (millisUntilFinished / 1000).toInt().coerceAtLeast(0)
+                        )
                     }
                 }
 
                 override fun onStateChange(state: CountDownTimerState) {
-                    _state.update { state }
+                    setState {
+                        copy(
+                            countDownTimerState = state
+                        )
+                    }
 
                     if(state == CountDownTimerState.FINISHED) {
                         println("Finish Trigger")
@@ -44,7 +49,7 @@ class PomodoreTimer(template: Template = Template.Default) {
         )
     }
 
-    fun start() = timer.start(_remainingTime.value * 1000L)
+    fun start() = timer.start(state.value.remainingTime * 1000L)
 
     fun pause() = timer.cancel()
 
@@ -53,8 +58,12 @@ class PomodoreTimer(template: Template = Template.Default) {
 
         val node = sequence.reset()
 
-        _remainingTime.update {
-            node?.data?.timeInSeconds ?: 0
+        setState {
+            copy(
+                totalTime = node?.data?.timeInSeconds ?: 0,
+                remainingTime = node?.data?.timeInSeconds ?: 0,
+                countDownTimerState = CountDownTimerState.IDLE,
+            )
         }
     }
 
@@ -63,12 +72,25 @@ class PomodoreTimer(template: Template = Template.Default) {
             ?: sequence.reset()
             ?: return
 
-        val timeInSeconds = _remainingTime.updateAndGet { entry.timeInSeconds }
+        val (_, remainingTime) = setState {
+            copy(
+                remainingTime = entry.timeInSeconds,
+                totalTime = entry.timeInSeconds,
+            )
+        }
 
         if(entry.autoStart) {
-            timer.start(timeInSeconds * 1000L)
+            timer.start(remainingTime * 1000L)
         }
     }
+
+    private fun setState(block: State.() -> State) = _state.updateAndGet(block)
+
+    data class State(
+        val totalTime: Int = 0,
+        val remainingTime: Int = 0,
+        val countDownTimerState: CountDownTimerState = CountDownTimerState.IDLE,
+    )
 
     companion object {
         private const val TICK_INTERVAL = 1_000L
