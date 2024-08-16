@@ -9,7 +9,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import components.CountdownProgressTimer
@@ -42,16 +47,24 @@ private fun MainScreenContent(
 ) {
     val progress by remember(uiState.remainingTime, uiState.totalTime) {
         mutableStateOf(
-            value = uiState.remainingTime.toFloat() / uiState.totalTime.toFloat()
+            value = 1f - uiState.remainingTime.toFloat() / uiState.totalTime.toFloat()
         )
+    }
+
+    var contentSize by remember {
+        mutableStateOf(IntSize.Zero)
     }
     
     WaveProgress(
         progress = progress,
+        contentSize = contentSize,
         content = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(64.dp)
+                verticalArrangement = Arrangement.spacedBy(64.dp),
+                modifier = Modifier.onSizeChanged {
+                    contentSize = it
+                },
             ) {
                 CountdownProgressTimer(
                     remainingTime = uiState.remainingTime,
@@ -73,7 +86,6 @@ private fun MainScreenContent(
                     )
                 }
             }
-             
         }
     )
 }
