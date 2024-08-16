@@ -2,11 +2,13 @@ package ui.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import circlebutton.CircleButton
 import components.CountdownProgressTimer
 import waveprogress.WaveProgress
 import models.CountDownTimerState
@@ -68,10 +71,16 @@ private fun MainScreenContent(
             ) {
                 CountdownProgressTimer(
                     remainingTime = uiState.remainingTime,
+                    style = MaterialTheme.typography.displayLarge.copy(
+                        fontSize = MaterialTheme.typography.displayLarge.fontSize * 1.5,
+                    )
                 )
                 
-                // TODO: Replace with Button like in https://dribbble.com/shots/2492858-Liquid-Pomodoro-Timer
-                Button(
+                // TODO: Remove hover effect or replace it with a better color
+                // TODO: Add Icons for States
+                CircleButton(
+                    modifier = Modifier.size(64.dp),
+                    icon = Icons.Default.PlayArrow,
                     onClick = {
                         if(uiState.timerState == CountDownTimerState.RUNNING) {
                             onAction(MainUiAction.PauseTimer)
@@ -79,12 +88,7 @@ private fun MainScreenContent(
                             onAction(MainUiAction.StartTimer)
                         }
                     }
-                ) {
-                    Icon(
-                        imageVector = if(uiState.timerState == CountDownTimerState.RUNNING) Icons.Default.Star else Icons.Default.PlayArrow,
-                        contentDescription = null
-                    )
-                }
+                )
             }
         }
     )

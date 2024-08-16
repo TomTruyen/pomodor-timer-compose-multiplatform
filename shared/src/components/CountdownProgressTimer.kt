@@ -17,7 +17,7 @@ import extensions.seconds
 @Composable
 fun CountdownProgressTimer(
     remainingTime: Int,
-    style: TextStyle = MaterialTheme.typography.displayMedium,
+    style: TextStyle = MaterialTheme.typography.displayLarge,
     modifier: Modifier = Modifier
 ) {
     val hours by remember(remainingTime) {
