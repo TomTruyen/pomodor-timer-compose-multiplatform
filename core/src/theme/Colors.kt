@@ -1,3 +1,5 @@
+package core.theme
+
 import androidx.compose.ui.graphics.Color
 
 val MintGreen = Color(0xFFDFF2DF)

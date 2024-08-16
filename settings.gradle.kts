@@ -13,7 +13,12 @@ plugins {
     id("org.jetbrains.amper.settings.plugin").version("0.4.0")
 }
 
+// Platforms
 include(":androidApp")
 include(":iosApp")
 include(":desktopApp")
+
+// Libraries
+include(":core")
 include(":shared")
+include(":ui")

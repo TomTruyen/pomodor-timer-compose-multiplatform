@@ -1,0 +1,12 @@
+product:
+  type: lib
+  platforms: [jvm, android, iosArm64, iosSimulatorArm64, iosX64]
+  
+dependencies:
+  - $compose.material3
+  - $libs.androidx.lifecycle.runtime.compose: exported
+  - $libs.androidx.lifecycle.viewmodel.compose: exported
+  - $libs.kotlinx.datetime
+  
+settings:
+  compose: enabled

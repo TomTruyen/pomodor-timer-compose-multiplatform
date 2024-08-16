@@ -3,14 +3,13 @@ product:
   platforms: [jvm, android, iosArm64, iosSimulatorArm64, iosX64]
 
 dependencies:
+  - ../core
+  - ../ui
   - $compose.foundation: exported
   - $compose.material3: exported
-  - $libs.androidx.lifecycle.runtime.compose: exported
-  - $libs.androidx.lifecycle.viewmodel.compose: exported
   - $libs.kotlinx.datetime
 
 dependencies@android:
-  # Compose integration with Android activities
   - $libs.androidx.activity.compose: exported
   - $libs.androidx.appcompat: exported
 

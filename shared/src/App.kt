@@ -1,6 +1,7 @@
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import screens.main.MainScreen
+import core.theme.AppTheme
+import ui.main.MainScreen
 
 @Composable
 fun App() {

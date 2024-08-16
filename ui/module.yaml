@@ -1,0 +1,20 @@
+product:
+  type: lib
+  platforms: [jvm, android, iosArm64, iosSimulatorArm64, iosX64]
+  
+dependencies:
+  - ../core
+  - $compose.foundation
+  - $compose.material3
+  - $libs.kotlinx.datetime
+    
+dependencies@android:
+  - $libs.androidx.activity.compose
+  - $libs.androidx.appcompat
+
+dependencies@jvm:
+  - $compose.desktop.currentOs    
+  
+settings:
+  compose:
+    enabled: true

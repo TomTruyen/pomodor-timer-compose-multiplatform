@@ -1,4 +1,4 @@
-package base
+package core
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

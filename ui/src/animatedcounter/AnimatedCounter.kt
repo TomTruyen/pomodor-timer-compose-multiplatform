@@ -1,4 +1,4 @@
-package components
+package animatedcounter
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FiniteAnimationSpec

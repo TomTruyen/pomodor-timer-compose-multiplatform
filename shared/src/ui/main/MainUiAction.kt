@@ -1,4 +1,4 @@
-package screens.main
+package ui.main
 
 sealed class MainUiAction {
     data object StartTimer: MainUiAction()

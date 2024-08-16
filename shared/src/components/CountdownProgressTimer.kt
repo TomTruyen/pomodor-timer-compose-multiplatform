@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import animatedcounter.AnimatedCounter
 import extensions.hours
 import extensions.minutes
 import extensions.seconds

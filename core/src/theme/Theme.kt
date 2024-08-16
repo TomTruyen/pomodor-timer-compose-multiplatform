@@ -1,6 +1,7 @@
+package core.theme
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -16,9 +17,9 @@ val LightColorPalette = lightColorScheme(
 
 //val DarkColorPalette = darkColorScheme(
 //    primary = DarkGreen,
-//    onPrimary = OffWhite,
-//    surface = Charcoal,
-//    onSurface = OffWhite
+//    onPrimary = core.theme.getOffWhite,
+//    surface = core.theme.getCharcoal,
+//    onSurface = core.theme.getOffWhite
 //)
 
 @Composable

@@ -61,6 +61,13 @@ fun main() = application {
     
     // Main Window
     Window(
+        state = rememberWindowState(
+            position = WindowPosition.Aligned(Alignment.Center),
+            size = DpSize(
+                width = 700.dp,
+                height = 700.dp
+            )
+        ),
         visible = isMainWindowVisible,
         onCloseRequest = {
             isMainWindowVisible = false
