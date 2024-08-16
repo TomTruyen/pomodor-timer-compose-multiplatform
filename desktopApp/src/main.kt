@@ -6,8 +6,12 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
+import java.awt.Dimension
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
+
+val MIN_WIDTH = 450.dp
+val MIN_HEIGHT = 700.dp
 
 fun main() = application {
     var isMainWindowVisible by remember { mutableStateOf(true) }
@@ -33,8 +37,8 @@ fun main() = application {
             placement = WindowPlacement.Floating,
             position = WindowPosition.Aligned(Alignment.BottomEnd),
             size = DpSize(
-                width = 450.dp,
-                height = 700.dp
+                width = MIN_WIDTH,
+                height = MIN_HEIGHT
             )
         ),
         visible = isTrayWindowVisible,
@@ -74,6 +78,8 @@ fun main() = application {
         },
         title = "PomodoreTimer",
     ) {
+        window.minimumSize = Dimension(MIN_WIDTH.value.toInt(), MIN_HEIGHT.value.toInt())
+        
         App()
     }
 }
