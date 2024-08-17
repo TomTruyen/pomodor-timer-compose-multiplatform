@@ -1,22 +1,19 @@
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.window.WindowDraggableArea
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.configuration.NotificationPlatformConfiguration
+import components.ShapedWindow
 import di.initKoin
+import utils.onFocusLost
 import java.awt.Dimension
-import java.awt.event.WindowEvent
-import java.awt.event.WindowFocusListener
 
 val MIN_WIDTH = 450.dp
 val MIN_HEIGHT = 700.dp
@@ -63,20 +60,22 @@ fun main() = application {
         onCloseRequest = {
             isTrayWindowVisible = false
         },
+        transparent = true,
         undecorated = true,
         resizable = false,
         alwaysOnTop = true,
-        title = "PomodorTimer Tray"
     ) {
-        window.addWindowFocusListener(object: WindowFocusListener {
-            override fun windowGainedFocus(e: WindowEvent?) = Unit
+        onFocusLost {
+            isTrayWindowVisible = false
+        }
 
-            override fun windowLostFocus(e: WindowEvent?) {
-                isTrayWindowVisible = false
+        WindowDraggableArea {
+            ShapedWindow(
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                App()
             }
-        })
-        
-        App()
+        }
     }
     
     // Main Window
