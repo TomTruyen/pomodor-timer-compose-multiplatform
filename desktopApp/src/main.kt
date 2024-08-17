@@ -6,6 +6,8 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
+import com.mmk.kmpnotifier.notification.NotifierManager
+import com.mmk.kmpnotifier.notification.configuration.NotificationPlatformConfiguration
 import java.awt.Dimension
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
@@ -14,6 +16,14 @@ val MIN_WIDTH = 450.dp
 val MIN_HEIGHT = 700.dp
 
 fun main() = application {
+    NotifierManager.initialize(
+        configuration = NotificationPlatformConfiguration.Desktop(
+            showPushNotification = true,
+//            notificationIconPath = "TO BE DETERMINED"
+        )
+    )
+    
+    
     var isMainWindowVisible by remember { mutableStateOf(true) }
     var isTrayWindowVisible by remember { mutableStateOf(false) }
 

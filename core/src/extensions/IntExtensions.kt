@@ -1,8 +1,4 @@
-package extensions
-
-import kotlinx.datetime.LocalTime
-import kotlinx.datetime.format.char
-import kotlinx.datetime.format.optional
+package core.extensions
 
 fun Int.hours() = this / 3600
 

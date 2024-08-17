@@ -1,4 +1,4 @@
-package models
+package core.models
 
 /**
  * @param name Name of the template
@@ -29,13 +29,13 @@ data class Template(
         repeat(sessionCount) { count ->
             val focusEntry = TimeEntry(
                 timeInSeconds = focusTimeSeconds,
-                type = TimeEntry.TimeType.FOCUS,
+                type = TimeType.Focus,
                 autoStart = autoStartFocus
             )
             
             val breakEntry = TimeEntry(
                 timeInSeconds = if(count < sessionCount - 1) shortBreakTimeSeconds else longBreakTimeSeconds,
-                type = TimeEntry.TimeType.BREAK,
+                type = TimeType.Break,
                 autoStart = autoStartBreak
             )
 
@@ -47,7 +47,7 @@ data class Template(
     companion object {
         val Default = Template(
             name = "Default",
-            focusTimeSeconds = 25 * 60,
+            focusTimeSeconds = 1 * 60,
             shortBreakTimeSeconds = 5 * 60,
             longBreakTimeSeconds = 15 * 60,
             autoStartFocus = true,

@@ -4,8 +4,6 @@ import androidx.lifecycle.viewModelScope
 import core.BaseViewModel
 import kotlinx.coroutines.launch
 import models.PomodoreTimer
-import ui.main.MainUiAction
-import ui.main.MainUiState
 
 class MainViewModel(
     private val timer: PomodoreTimer

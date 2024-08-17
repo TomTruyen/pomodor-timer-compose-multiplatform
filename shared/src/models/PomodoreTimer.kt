@@ -1,14 +1,17 @@
 package models
 
+import com.mmk.kmpnotifier.notification.NotifierManager
+import core.models.Template
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 
 /**
  * @param template to generate the sequence for the [CountDownTimer]
  */
 class PomodoreTimer(template: Template = Template.Default) {
+    private val notifier = NotifierManager.getLocalNotifier()
+
     private val sequence = template.generateSequence()
 
     private val _state = MutableStateFlow(
@@ -41,7 +44,6 @@ class PomodoreTimer(template: Template = Template.Default) {
                     }
 
                     if(state == CountDownTimerState.FINISHED) {
-                        println("Finish Trigger")
                         onFinish()
                     }
                 }
@@ -68,6 +70,8 @@ class PomodoreTimer(template: Template = Template.Default) {
     }
 
     private fun onFinish() {
+        sendNotification()
+
         val (entry) = sequence.next()
             ?: sequence.reset()
             ?: return
@@ -82,6 +86,17 @@ class PomodoreTimer(template: Template = Template.Default) {
         if(entry.autoStart) {
             timer.start(remainingTime * 1000L)
         }
+    }
+
+    private fun sendNotification() {
+        val (data) = sequence.current() ?: return
+
+        val notificationMessage = data.type.getNotificationMessage()
+        
+        notifier.notify(
+            title = notificationMessage.title,
+            body = notificationMessage.body,
+        )
     }
 
     private fun setState(block: State.() -> State) = _state.updateAndGet(block)

@@ -1,4 +1,4 @@
-package models
+package core.models
 
 /**
  * Node for [LinkedList]

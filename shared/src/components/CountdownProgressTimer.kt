@@ -10,9 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import animatedcounter.AnimatedCounter
-import extensions.hours
-import extensions.minutes
-import extensions.seconds
+import core.extensions.hours
+import core.extensions.minutes
+import core.extensions.seconds
 
 @Composable
 fun CountdownProgressTimer(

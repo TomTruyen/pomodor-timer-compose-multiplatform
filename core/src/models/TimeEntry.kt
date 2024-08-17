@@ -1,4 +1,4 @@
-package models
+package core.models
 
 /**
  * @param timeInSeconds in seconds
@@ -9,9 +9,4 @@ data class TimeEntry(
     val timeInSeconds: Int,
     val type: TimeType,
     val autoStart: Boolean,
-) {
-    enum class TimeType {
-        BREAK,
-        FOCUS
-    }
-}
+)
