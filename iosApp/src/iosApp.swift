@@ -1,5 +1,6 @@
 import SwiftUI
 import kotlin
+import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -16,6 +17,11 @@ struct ContentView: View {
 
 @main
 struct iosApp: App {
+    init() {
+        // TODO: Check if this works
+        KoinKt.initKoin()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

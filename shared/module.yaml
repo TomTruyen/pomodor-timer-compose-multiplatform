@@ -7,8 +7,11 @@ dependencies:
   - ../ui
   - $compose.foundation: exported
   - $compose.material3: exported
-  - $libs.kotlinx.datetime
+  - $libs.kotlinx.datetime: exported
   - $libs.kmpnotifier: exported
+  - $libs.koin.core: exported
+  - $libs.koin.compose: exported
+  - $libs.koin.compose.viewmodel: exported
 
 dependencies@android:
   - $libs.androidx.activity.compose: exported
@@ -16,7 +19,7 @@ dependencies@android:
 
 dependencies@jvm:
   - $compose.desktop.currentOs
-  - $libs.kotlinx.coroutines.swing
+  - $libs.kotlinx.coroutines.swing: exported
 
 settings:
   compose:

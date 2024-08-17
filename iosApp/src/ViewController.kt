@@ -1,5 +1,4 @@
 import androidx.compose.ui.window.ComposeUIViewController
-import App
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.configuration.NotificationPlatformConfiguration
 

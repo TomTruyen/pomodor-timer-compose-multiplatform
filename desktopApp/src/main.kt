@@ -1,19 +1,27 @@
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.configuration.NotificationPlatformConfiguration
+import di.initKoin
 import java.awt.Dimension
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
 
 val MIN_WIDTH = 450.dp
 val MIN_HEIGHT = 700.dp
+
+private val koin = initKoin().koin
 
 fun main() = application {
     NotifierManager.initialize(
@@ -60,15 +68,13 @@ fun main() = application {
         alwaysOnTop = true,
         title = "PomodorTimer Tray"
     ) {
-        LaunchedEffect(Unit) {
-            this@Window.window.addWindowFocusListener(object: WindowFocusListener {
-                override fun windowGainedFocus(e: WindowEvent?) = Unit
+        window.addWindowFocusListener(object: WindowFocusListener {
+            override fun windowGainedFocus(e: WindowEvent?) = Unit
 
-                override fun windowLostFocus(e: WindowEvent?) {
-                    isTrayWindowVisible = false
-                }
-            })
-        }
+            override fun windowLostFocus(e: WindowEvent?) {
+                isTrayWindowVisible = false
+            }
+        })
         
         App()
     }

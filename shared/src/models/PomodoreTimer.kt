@@ -92,7 +92,7 @@ class PomodoreTimer(template: Template = Template.Default) {
         val (data) = sequence.current() ?: return
 
         val notificationMessage = data.type.getNotificationMessage()
-        
+
         notifier.notify(
             title = notificationMessage.title,
             body = notificationMessage.body,

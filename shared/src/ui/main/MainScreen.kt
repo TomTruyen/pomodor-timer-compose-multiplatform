@@ -4,34 +4,27 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import circlebutton.CircleButton
 import components.CountdownProgressTimer
 import waveprogress.WaveProgress
 import models.CountDownTimerState
-import models.PomodoreTimer
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
 // TODO: Fix - Font face (question asked: https://kotlinlang.slack.com/archives/C062WG3A7T8/p1723735507094659)
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = viewModel {
-        MainViewModel(
-            timer = PomodoreTimer()
-        )
-    }
+    viewModel: MainViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     
