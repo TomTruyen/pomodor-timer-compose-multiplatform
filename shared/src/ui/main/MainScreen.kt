@@ -1,8 +1,6 @@
 package ui.main
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
@@ -76,19 +74,34 @@ private fun MainScreenContent(
                     )
                 )
                 
-                // TODO: Remove hover effect or replace it with a better color
                 // TODO: Add Icons for States
-                CircleButton(
-                    modifier = Modifier.size(64.dp),
-                    icon = Icons.Default.PlayArrow,
-                    onClick = {
-                        if(uiState.timerState == CountDownTimerState.RUNNING) {
-                            onAction(MainUiAction.PauseTimer)
-                        } else {
-                            onAction(MainUiAction.StartTimer)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally)
+                ) {
+                    CircleButton(
+                        modifier = Modifier.size(40.dp),
+                        icon = Icons.Default.Star,
+                        onClick = {
+                            onAction(MainUiAction.ResetTimer)
                         }
-                    }
-                )
+                    )
+
+                    CircleButton(
+                        modifier = Modifier.size(64.dp),
+                        icon = Icons.Default.PlayArrow,
+                        onClick = {
+                            if(uiState.timerState == CountDownTimerState.RUNNING) {
+                                onAction(MainUiAction.PauseTimer)
+                            } else {
+                                onAction(MainUiAction.StartTimer)
+                            }
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.size(40.dp))
+                }
             }
         }
     )
