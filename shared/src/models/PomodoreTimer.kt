@@ -9,9 +9,10 @@ import kotlinx.coroutines.flow.updateAndGet
 /**
  * @param template to generate the sequence for the [CountDownTimer]
  */
-class PomodoreTimer(template: Template = Template.Default) {
-    private val notifier = NotifierManager.getLocalNotifier()
-
+class PomodoreTimer(
+    private val notificationManager: NotificationManager,
+    template: Template = Template.Default
+) {
     private val sequence = template.generateSequence()
 
     private val _state = MutableStateFlow(
@@ -91,12 +92,7 @@ class PomodoreTimer(template: Template = Template.Default) {
     private fun sendNotification() {
         val (data) = sequence.current() ?: return
 
-        val notificationMessage = data.type.getNotificationMessage()
-
-        notifier.notify(
-            title = notificationMessage.title,
-            body = notificationMessage.body,
-        )
+        notificationManager.sendNotification(data.type.getNotificationMessage())
     }
 
     private fun setState(block: State.() -> State) = _state.updateAndGet(block)

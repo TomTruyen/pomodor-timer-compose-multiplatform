@@ -1,5 +1,6 @@
 package di
 
+import models.NotificationManager
 import models.PomodoreTimer
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.context.startKoin
@@ -8,7 +9,13 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 
 val appModule = module {
-    single<PomodoreTimer> { PomodoreTimer() }
+    single<NotificationManager> { NotificationManager() }
+
+    single<PomodoreTimer> {
+        PomodoreTimer(
+            notificationManager = get<NotificationManager>()
+        )
+    }
 }
 
 val viewModelModule = module {
