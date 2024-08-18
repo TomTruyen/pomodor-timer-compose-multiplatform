@@ -1,9 +1,6 @@
 package ui.main
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,6 +11,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import circlebutton.CircleButton
 import components.CountdownProgressTimer
+import core.icons.generated.Pause
+import core.icons.generated.Play
+import core.icons.generated.Stop
 import waveprogress.WaveProgress
 import models.CountDownTimerState
 import org.koin.compose.viewmodel.koinViewModel
@@ -49,6 +49,12 @@ private fun MainScreenContent(
         mutableStateOf(IntSize.Zero)
     }
     
+    val isTimerRunning by remember {
+        derivedStateOf {
+            uiState.timerState == CountDownTimerState.RUNNING
+        }
+    }
+
     WaveProgress(
         progress = progress,
         contentSize = contentSize,
@@ -67,7 +73,6 @@ private fun MainScreenContent(
                     )
                 )
                 
-                // TODO: Add Icons for States
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -75,7 +80,8 @@ private fun MainScreenContent(
                 ) {
                     CircleButton(
                         modifier = Modifier.size(40.dp),
-                        icon = Icons.Default.Star,
+                        icon = Stop,
+                        iconSize = 16.dp,
                         onClick = {
                             onAction(MainUiAction.ResetTimer)
                         }
@@ -83,9 +89,10 @@ private fun MainScreenContent(
 
                     CircleButton(
                         modifier = Modifier.size(64.dp),
-                        icon = Icons.Default.PlayArrow,
+                        icon = if(isTimerRunning) Pause else Play,
+                        iconSize = 24.dp,
                         onClick = {
-                            if(uiState.timerState == CountDownTimerState.RUNNING) {
+                            if(isTimerRunning) {
                                 onAction(MainUiAction.PauseTimer)
                             } else {
                                 onAction(MainUiAction.StartTimer)

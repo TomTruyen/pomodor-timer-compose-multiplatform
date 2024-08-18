@@ -1,11 +1,11 @@
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.window.WindowDraggableArea
 import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,6 +17,8 @@ import androidx.compose.ui.window.*
 import com.mmk.kmpnotifier.notification.NotifierManager
 import com.mmk.kmpnotifier.notification.configuration.NotificationPlatformConfiguration
 import components.ShapedWindow
+import core.icons.generated.PinFilled
+import core.icons.generated.PinOutlined
 import di.initKoin
 import utils.onFocusLost
 import java.awt.Dimension
@@ -94,9 +96,9 @@ fun main() = application {
                         },
                     ) {
                         Icon(
-                            // TODO: Replace with Pin Icon
-                            imageVector = Icons.Default.Warning,
+                            imageVector = if(isTrayWindowPinned) PinFilled else PinOutlined,
                             contentDescription = null,
+                            modifier = Modifier.size(16.dp)
                         )
                     }
                 }

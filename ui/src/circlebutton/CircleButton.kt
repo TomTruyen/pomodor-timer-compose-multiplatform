@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -16,11 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun CircleButton(
     icon: ImageVector,
+    iconSize: Dp,
     color: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
@@ -38,7 +41,7 @@ fun CircleButton(
         ),
         elevation = null,
         border = BorderStroke(
-            width = 1.dp,
+            width = 2.dp,
             color = color,
             ),
         contentPadding = PaddingValues(0.dp),
@@ -48,6 +51,7 @@ fun CircleButton(
             imageVector = icon,
             contentDescription = null,
             tint = color,
+            modifier = Modifier.size(iconSize)
             )
     }
 }

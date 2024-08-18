@@ -7,11 +7,11 @@ dependencies:
   - ../ui
   - $compose.foundation: exported
   - $compose.material3: exported
-  - $libs.kotlinx.datetime: exported
   - $libs.kmpnotifier: exported
   - $libs.koin.core: exported
   - $libs.koin.compose: exported
   - $libs.koin.compose.viewmodel: exported
+  - $libs.kotlinx.datetime: exported
 
 dependencies@android:
   - $libs.androidx.activity.compose: exported
