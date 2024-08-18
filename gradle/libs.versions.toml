@@ -4,7 +4,7 @@ androidx-appcompat = "1.7.0"
 androidx-lifecycle = "2.8.0"
 kmpnotifier = "1.2.1"
 koin = "4.0.0-RC1"
-koin-compose = "1.2.0-Beta5" # TODO: Replace with `koin` version in the future when crash is fixed: https://github.com/InsertKoinIO/koin/issues/1948
+koin-compose = "1.2.0-Beta5" # TODO: Replace with `koin` version in the future when crash is fixed: https://github.com/InsertKoinIO/koin/issues/1948. Cause of crash is Compose version of amper, we can update manually or wait for Amper release to update compose to 1.7
 kotlinx-coroutines = "1.9.0-RC"
 kotlinx-datetime = "0.6.0"
 
