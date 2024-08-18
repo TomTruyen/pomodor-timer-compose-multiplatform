@@ -1,9 +1,15 @@
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.window.WindowDraggableArea
+import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -31,6 +37,7 @@ fun main() = application {
     
     var isMainWindowVisible by remember { mutableStateOf(true) }
     var isTrayWindowVisible by remember { mutableStateOf(false) }
+    var isTrayWindowPinned by remember { mutableStateOf(false) }
 
     Tray(
         icon = rememberVectorPainter(Icons.Default.Build),
@@ -66,14 +73,33 @@ fun main() = application {
         alwaysOnTop = true,
     ) {
         onFocusLost {
-            isTrayWindowVisible = false
+            if(!isTrayWindowPinned) {
+                isTrayWindowVisible = false
+            }
         }
 
         WindowDraggableArea {
             ShapedWindow(
                 shape = RoundedCornerShape(8.dp)
             ) {
-                App()
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    App()
+
+                    IconButton(
+                        modifier = Modifier.align(Alignment.TopEnd),
+                        onClick = {
+                            isTrayWindowPinned = !isTrayWindowPinned
+                        },
+                    ) {
+                        Icon(
+                            // TODO: Replace with Pin Icon
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = null,
+                        )
+                    }
+                }
             }
         }
     }
