@@ -49,10 +49,8 @@ private fun MainScreenContent(
         mutableStateOf(IntSize.Zero)
     }
     
-    val isTimerRunning by remember {
-        derivedStateOf {
-            uiState.timerState == CountDownTimerState.RUNNING
-        }
+    val isTimerRunning by remember(uiState.timerState) {
+        mutableStateOf(uiState.timerState == CountDownTimerState.RUNNING)
     }
 
     WaveProgress(

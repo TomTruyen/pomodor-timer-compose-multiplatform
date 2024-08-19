@@ -20,15 +20,22 @@ import components.ShapedWindow
 import core.icons.generated.PinFilled
 import core.icons.generated.PinOutlined
 import di.initKoin
+import di.jvmModule
+import org.koin.core.context.loadKoinModules
+import utils.TrayPositionProvider
 import utils.onFocusLost
 import java.awt.Dimension
 
 val MIN_WIDTH = 450.dp
 val MIN_HEIGHT = 700.dp
 
-private val koin = initKoin().koin
+private val koin = initKoin {
+    loadKoinModules(jvmModule)
+}.koin
 
 fun main() = application {
+    val trayPositionProvider: TrayPositionProvider by koin.inject<TrayPositionProvider>()
+
     NotifierManager.initialize(
         configuration = NotificationPlatformConfiguration.Desktop(
             showPushNotification = true,
@@ -59,7 +66,9 @@ fun main() = application {
     Window(
         state = rememberWindowState(
             placement = WindowPlacement.Floating,
-            position = WindowPosition.Aligned(Alignment.BottomEnd),
+            position = WindowPosition.Aligned(
+                alignment = trayPositionProvider.calculateTrayPosition()
+            ),
             size = DpSize(
                 width = MIN_WIDTH,
                 height = MIN_HEIGHT
