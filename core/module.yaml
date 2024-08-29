@@ -2,6 +2,9 @@ product:
   type: lib
   platforms: [jvm, android, iosArm64, iosSimulatorArm64, iosX64]
   
+module:
+  layout: gradle-kmp
+
 dependencies:
   - $compose.material3
   - $libs.androidx.lifecycle.runtime.compose: exported

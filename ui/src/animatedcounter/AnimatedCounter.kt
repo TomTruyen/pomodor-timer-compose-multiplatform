@@ -5,11 +5,13 @@ import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun AnimatedCounter(
@@ -25,7 +27,9 @@ fun AnimatedCounter(
         oldCount = count
     }
     
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier
+    ) {
         val countString = count.toString().padStart(2, '0')
         val oldCountString = oldCount.toString().padStart(2, '0')
         
@@ -47,6 +51,7 @@ fun AnimatedCounter(
                 label = "AnimatedCounter"
             ) { char ->
                 Text(
+                    modifier = Modifier.padding(vertical = 16.dp),
                     text = char.toString(),
                     style = style,
                     softWrap = false
