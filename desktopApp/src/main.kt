@@ -10,7 +10,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.loadImageBitmap
+import androidx.compose.ui.res.useResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
@@ -36,6 +40,12 @@ private val koin = initKoin {
 fun main() = application {
     val trayPositionProvider: TrayPositionProvider by koin.inject<TrayPositionProvider>()
 
+    val appIcon = remember {
+        BitmapPainter(
+            image = useResource("drawable/icon.png", ::loadImageBitmap)
+        )
+    }
+
     NotifierManager.initialize(
         configuration = NotificationPlatformConfiguration.Desktop(
             showPushNotification = true,
@@ -49,7 +59,7 @@ fun main() = application {
     var isTrayWindowPinned by remember { mutableStateOf(false) }
 
     Tray(
-        icon = rememberVectorPainter(Icons.Default.Build),
+        icon = appIcon,
         onAction = {
             isTrayWindowVisible = true
         },
@@ -64,6 +74,7 @@ fun main() = application {
     )
     
     Window(
+        icon = appIcon,
         state = rememberWindowState(
             placement = WindowPlacement.Floating,
             position = WindowPosition.Aligned(
@@ -117,6 +128,7 @@ fun main() = application {
     
     // Main Window
     Window(
+        icon = appIcon,
         state = rememberWindowState(
             position = WindowPosition.Aligned(Alignment.Center),
             size = DpSize(
