@@ -19,14 +19,12 @@ import models.CountDownTimerState
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
-// TODO: Fix - Font face (question asked: https://kotlinlang.slack.com/archives/C062WG3A7T8/p1723735507094659)
-
 @OptIn(KoinExperimentalAPI::class)
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsState()
     
     MainScreenContent(
         uiState = uiState,
